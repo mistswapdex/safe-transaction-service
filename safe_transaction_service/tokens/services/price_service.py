@@ -225,7 +225,7 @@ class PriceService:
             EthereumNetwork.SMARTBCH,
             EthereumNetwork.SMARTBCHTEST_TESTNET,
         ):
-            return self.get_aurora_usd_price()
+            return self.get_bch_usd_price()
         else:
             try:
                 return self.kraken_client.get_eth_usd_price()

@@ -155,6 +155,9 @@ class PriceService:
     def get_aurora_usd_price(self) -> float:
         return self.coingecko_client.get_aoa_usd_price()
 
+    def get_bch_usd_price(self) -> float:
+        return self.coingecko_client.get_bch_usd_price()
+
     def get_binance_usd_price(self) -> float:
         try:
             return self.binance_client.get_bnb_usd_price()
@@ -216,6 +219,11 @@ class PriceService:
             EthereumNetwork.AURORA,
             EthereumNetwork.AURORA_BETANET,
             EthereumNetwork.ARBITRUM_TESTNET,
+        ):
+            return self.get_aurora_usd_price()
+        elif self.ethereum_network in (
+            EthereumNetwork.SMARTBCH,
+            EthereumNetwork.SMARTBCHTEST_TESTNET,
         ):
             return self.get_aurora_usd_price()
         else:

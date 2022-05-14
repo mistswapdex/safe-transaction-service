@@ -31,6 +31,8 @@ class CoingeckoClient:
             self.asset_platform = "optimistic-ethereum"
         elif network == EthereumNetwork.XDAI:
             self.asset_platform = "xdai"
+        elif network == EthereumNetwork.SMARTBCH:
+            self.asset_platform = "smartbch"
         else:
             self.asset_platform = "ethereum"
 
@@ -45,6 +47,7 @@ class CoingeckoClient:
             EthereumNetwork.MATIC,
             EthereumNetwork.OPTIMISTIC,
             EthereumNetwork.XDAI,
+            EthereumNetwork.SMARTBCH,
         )
 
     def _get_price(self, url: str, name: str):

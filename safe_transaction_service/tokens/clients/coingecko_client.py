@@ -97,7 +97,7 @@ class CoingeckoClient:
         return self.get_price("aurora")
 
     def get_bch_usd_price(self) -> float:
-        return self.get_price("bitcoin-cash")
+        return self.get_price("wrapped-bch")
 
     def get_bnb_usd_price(self) -> float:
         return self.get_price("binancecoin")

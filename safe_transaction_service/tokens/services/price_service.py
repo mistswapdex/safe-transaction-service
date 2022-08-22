@@ -54,6 +54,12 @@ class MistswapOracle(UniswapV2Oracle):
     )
     router_address = "0x5d0bF8d8c8b054080E2131D8b260a5c6959411B8"
 
+class DogMoneyOracle(UniswapV2Oracle):
+    pair_init_code = HexBytes(
+        "0x022c5c03794888783ccaeb987cd83b57b6e707f13c06fe761befb20653553b92"
+    )
+    router_address = "0x9BBF70e64fbe8Fc7afE8a5Ae90F2DB1165013F93"
+
 
 logger = get_task_logger(__name__)
 
@@ -107,6 +113,7 @@ class PriceService:
             self.ethereum_client, self.uniswap_v2_oracle
         )
         self.mistswap_oracle = MistswapOracle(self.ethereum_client)
+        self.dogmoneyswap_oracle = DogMoneyOracle(self.ethereum_client)
         self.cache_eth_price = TTLCache(
             maxsize=2048, ttl=60 * 30
         )  # 30 minutes of caching
@@ -135,6 +142,10 @@ class PriceService:
             return (
                 self.mistswap_oracle,
             )
+        elif self.ethereum_network == 2000: # dogechain mainnet
+            return (
+                self.dogmoneyswap_oracle,
+            )
         else:
             return (
                 self.uniswap_v2_oracle,
@@ -147,6 +158,8 @@ class PriceService:
             return self.uniswap_v2_oracle, self.balancer_oracle, self.mooniswap_oracle
         elif self.ethereum_network == EthereumNetwork.SMARTBCH:
             return (self.mistswap_oracle,)
+        elif self.ethereum_network == 2000: # dogechain mainnet
+            return (self.dogmoneyswap_oracle,)
         else:
             return tuple()
 
@@ -173,6 +186,9 @@ class PriceService:
 
     def get_bch_usd_price(self) -> float:
         return self.coingecko_client.get_bch_usd_price()
+
+    def get_doge_usd_price(self) -> float:
+        return self.coingecko_client.get_doge_usd_price()
 
     def get_binance_usd_price(self) -> float:
         try:
@@ -242,6 +258,11 @@ class PriceService:
             EthereumNetwork.SMARTBCHTEST_TESTNET,
         ):
             return self.get_bch_usd_price()
+        elif self.ethereum_network in (
+            2000, # dogechain mainnet
+            568, # dogechain testnet
+        ):
+            return self.get_doge_usd_price()
         else:
             try:
                 return self.kraken_client.get_eth_usd_price()

@@ -272,6 +272,12 @@ MASTER_COPIES: Dict[EthereumNetwork, List[Tuple[str, int, str]]] = {
         ("0xfb1bffC9d739B8D520DaF37dF666da4C687191EA", 4564673, "1.3.0+L2"),
         ("0x69f4D1788e39c87893C980c06EdF4b7f686e2938", 4564708, "1.3.0"),
     ],
+    2000: [ # dogechain mainnet
+        ("0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2", 1134735),  # v1.3.0
+    ],
+    568: [ # dogechain testnet
+        ("0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2", 4919904),  # v1.3.0
+    ],
 }
 
 PROXY_FACTORIES: Dict[EthereumNetwork, List[Tuple[str, int]]] = {
@@ -377,6 +383,14 @@ PROXY_FACTORIES: Dict[EthereumNetwork, List[Tuple[str, int]]] = {
     ],
     EthereumNetwork.SMARTBCHTEST_TESTNET: [
         ("0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC", 4564576),  # v1.3.0
+    ],
+    2000: [ # dogechain mainnet
+        ("0x3E5c63644E683549055b9Be8653de26E0B4CD36E", 1134763, "1.3.0+L2"),
+        ("0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552", 1134767, "1.3.0"),
+    ],
+    568: [ # dogechain testnet
+        ("0x3E5c63644E683549055b9Be8653de26E0B4CD36E", 4919933, "1.3.0+L2"),
+        ("0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552", 4919937, "1.3.0"),
     ],
 }
 

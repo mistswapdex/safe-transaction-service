@@ -31,8 +31,16 @@ class CoingeckoClient:
             self.asset_platform = "optimistic-ethereum"
         elif network == EthereumNetwork.XDAI:
             self.asset_platform = "xdai"
-        elif network == EthereumNetwork.SMARTBCH:
+        elif network in (
+                EthereumNetwork.SMARTBCH,
+                EthereumNetwork.SMARTBCHTEST_TESTNET,
+            ):
             self.asset_platform = "smartbch"
+        elif network in (
+                2000, # dogechain mainnet
+                568, # dogechain testnet
+            ):
+            self.asset_platform = "dogechain"
         else:
             self.asset_platform = "ethereum"
 
@@ -48,6 +56,9 @@ class CoingeckoClient:
             EthereumNetwork.OPTIMISTIC,
             EthereumNetwork.XDAI,
             EthereumNetwork.SMARTBCH,
+            EthereumNetwork.SMARTBCHTEST_TESTNET,
+            2000, # dogechain mainnet
+            568, # dogechain testnet
         )
 
     def _get_price(self, url: str, name: str):
@@ -98,6 +109,9 @@ class CoingeckoClient:
 
     def get_bch_usd_price(self) -> float:
         return self.get_price("wrapped-bch")
+
+    def get_doge_usd_price(self) -> float:
+        return self.get_price("dogecoin")
 
     def get_bnb_usd_price(self) -> float:
         return self.get_price("binancecoin")

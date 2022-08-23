@@ -37,8 +37,8 @@ class CoingeckoClient:
             ):
             self.asset_platform = "smartbch"
         elif network in (
-                2000, # dogechain mainnet
-                568, # dogechain testnet
+                EthereumNetwork.DOGECHAIN,
+                EthereumNetwork.DOGECHAIN_TESTNET,
             ):
             self.asset_platform = "dogechain"
         else:
@@ -57,8 +57,8 @@ class CoingeckoClient:
             EthereumNetwork.XDAI,
             EthereumNetwork.SMARTBCH,
             EthereumNetwork.SMARTBCHTEST_TESTNET,
-            2000, # dogechain mainnet
-            568, # dogechain testnet
+            EthereumNetwork.DOGECHAIN,
+            EthereumNetwork.DOGECHAIN_TESTNET,
         )
 
     def _get_price(self, url: str, name: str):

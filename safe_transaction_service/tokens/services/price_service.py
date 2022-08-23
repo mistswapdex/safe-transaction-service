@@ -142,7 +142,7 @@ class PriceService:
             return (
                 self.mistswap_oracle,
             )
-        elif self.ethereum_network == 2000: # dogechain mainnet
+        elif self.ethereum_network == EthereumNetwork.DOGECHAIN:
             return (
                 self.dogmoneyswap_oracle,
             )
@@ -158,7 +158,7 @@ class PriceService:
             return self.uniswap_v2_oracle, self.balancer_oracle, self.mooniswap_oracle
         elif self.ethereum_network == EthereumNetwork.SMARTBCH:
             return (self.mistswap_oracle,)
-        elif self.ethereum_network == 2000: # dogechain mainnet
+        elif self.ethereum_network == EthereumNetwork.DOGECHAIN:
             return (self.dogmoneyswap_oracle,)
         else:
             return tuple()
@@ -259,8 +259,8 @@ class PriceService:
         ):
             return self.get_bch_usd_price()
         elif self.ethereum_network in (
-            2000, # dogechain mainnet
-            568, # dogechain testnet
+            EthereumNetwork.DOGECHAIN,
+            EthereumNetwork.DOGECHAIN_TESTNET,
         ):
             return self.get_doge_usd_price()
         else:

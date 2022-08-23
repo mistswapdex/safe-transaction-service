@@ -84,6 +84,8 @@ class SafeMultisigConfirmationSerializer(serializers.Serializer):
             safe_owners = safe.retrieve_owners(block_identifier="pending")
         except BadFunctionCallOutput:  # Error using pending block identifier
             safe_owners = safe.retrieve_owners(block_identifier="latest")
+        except:
+            safe_owners = safe.retrieve_owners(block_identifier="latest")
 
         parsed_signatures = SafeSignature.parse_signature(signature, safe_tx_hash)
         signature_owners = []
@@ -203,6 +205,8 @@ class SafeMultisigTransactionSerializer(SafeMultisigTxSerializerV1):
             raise ValidationError(
                 "Problem connecting to the ethereum node, please try again later"
             )
+        except:
+            safe_owners = safe.retrieve_owners(block_identifier="latest")
 
         data["safe_owners"] = safe_owners
 

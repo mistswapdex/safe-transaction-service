@@ -301,3 +301,20 @@ class TestCollectiblesService(EthereumTestCaseMixin, TestCase):
             collectibles_service._retrieve_metadata_from_uri(ipfs_address),
             expected_object,
         )
+
+    def test_retrieve_metadata_from_base64_encoded_uri(self):
+        collectibles_service = CollectiblesServiceProvider()
+        expected_object = {
+            "name": "RENDERAI NFT #228",
+            "description": "An unpredictable blockchain machine has opened a portal to a parallel world. Those who entered the portal have changed. They are called RENDERAI.",
+            "image": "https://bafybeicii4k6idvzbj6fjcw73vkhdaqddclrelgvqmvdgdqf2mjjexzu4m.ipfs.nftstorage.link/228.png",
+            "attributes": [
+                { "trait_type": "Genre","value": "AI artwork" },
+                { "trait_type": "Model","value": "Stable Diffusion" }
+            ]
+        }
+
+        self.assertEqual(
+            collectibles_service.get_metadata(Collectible("", "", "", "", 0, "data:application/json;base64,eyJuYW1lIjogIlJFTkRFUkFJIE5GVCAjMjI4IiwiZGVzY3JpcHRpb24iOiAiQW4gdW5wcmVkaWN0YWJsZSBibG9ja2NoYWluIG1hY2hpbmUgaGFzIG9wZW5lZCBhIHBvcnRhbCB0byBhIHBhcmFsbGVsIHdvcmxkLiBUaG9zZSB3aG8gZW50ZXJlZCB0aGUgcG9ydGFsIGhhdmUgY2hhbmdlZC4gVGhleSBhcmUgY2FsbGVkIFJFTkRFUkFJLiIsImltYWdlIjogImh0dHBzOi8vYmFmeWJlaWNpaTRrNmlkdnpiajZmamN3NzN2a2hkYXFkZGNscmVsZ3ZxbXZkZ2RxZjJtampleHp1NG0uaXBmcy5uZnRzdG9yYWdlLmxpbmsvMjI4LnBuZyIsImF0dHJpYnV0ZXMiOiBbeyAidHJhaXRfdHlwZSI6ICJHZW5yZSIsInZhbHVlIjogIkFJIGFydHdvcmsiIH0seyAidHJhaXRfdHlwZSI6ICJNb2RlbCIsInZhbHVlIjogIlN0YWJsZSBEaWZmdXNpb24iIH1dfQ==")),
+            expected_object,
+        )

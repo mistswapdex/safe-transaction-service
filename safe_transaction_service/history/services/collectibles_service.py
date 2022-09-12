@@ -28,6 +28,9 @@ from ..clients import EnsClient
 from ..exceptions import NodeConnectionException
 from ..models import ERC721Transfer
 
+import base64
+import json
+
 logger = logging.getLogger(__name__)
 
 
@@ -238,6 +241,13 @@ class CollectiblesService:
                 + f".{tld} ENS Domain",
                 "image": self.ENS_IMAGE_URL,
             }
+
+        split = collectible.uri.split('data:application/json;base64,')
+        if len(split) == 2:
+            try:
+                return json.loads(base64.b64decode(split[1]))
+            except:
+                pass
 
         return self._retrieve_metadata_from_uri(collectible.uri)
 
